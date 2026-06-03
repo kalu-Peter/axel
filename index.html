@@ -49,7 +49,7 @@
 
         /* ── Images ── */
         .image-section {
-            padding: 80px 0 60px;
+            padding: 12px 0 60px;
             opacity: 0;
             animation: fadeIn 1s ease 0.2s forwards;
         }
@@ -265,7 +265,7 @@
         @media (max-width: 768px) {
             .container { padding: 0 20px; }
             .images-grid { grid-template-columns: 1fr; gap: 50px; }
-            .image-section { padding: 60px 0 40px; }
+            .image-section { padding: 8px 0 40px; }
             .quote-section { padding: 60px 0 40px; }
             .cta-section { padding: 40px 0 80px; }
             .youtube-btn { padding: 18px 40px; font-size: 1rem; }
@@ -281,20 +281,36 @@
     <div class="container">
 
         <header style="
-            text-align: center;
-            padding: 60px 0 20px;
+            padding: 24px 0 12px;
             opacity: 0;
             animation: fadeIn 1s ease 0s forwards;
+            display: flex;
+            align-items: center;
+            gap: 14px;
         ">
+            <img src="logo.jpeg" alt="Diani mit Axel logo" style="
+                height: 72px;
+                width: auto;
+                display: block;
+                flex-shrink: 0;
+                mix-blend-mode: multiply;
+            ">
+            <div style="
+                width: 1px;
+                height: 48px;
+                background: var(--sage);
+                opacity: 0.4;
+                flex-shrink: 0;
+            "></div>
             <h1 style="
                 font-family: 'Playfair Display', serif;
-                font-size: clamp(2.8rem, 7vw, 5.5rem);
+                font-size: clamp(1.4rem, 3.5vw, 2.4rem);
                 font-weight: 700;
-                letter-spacing: 0.08em;
+                letter-spacing: 0.06em;
                 color: var(--charcoal);
                 text-transform: uppercase;
+                line-height: 1.1;
             ">DIANI-mit-AXEL</h1>
-            <div class="ornament" style="margin-top: 24px;"></div>
         </header>
 
         <section class="image-section">
