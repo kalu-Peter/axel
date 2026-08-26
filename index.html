@@ -6,7 +6,7 @@
     <title>Diani-mit-AXEL</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Libre+Baskerville:wght@400;700&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Libre+Baskerville:wght@400;700&family=Source+Sans+3:wght@300;400;600&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -25,10 +25,147 @@
 
         body {
             font-family: 'Source Sans 3', sans-serif;
-            background: var(--cream);
+            background: var(--page-bg, var(--cream));
             color: var(--charcoal);
             overflow-x: hidden;
             line-height: 1.6;
+            transition: background-color 1s cubic-bezier(.4,0,.2,1);
+        }
+
+        .image-section { --section-bg: #F7F4EF; }
+        .story-section { --section-bg: #E7EDE8; }
+        .quote-section { --section-bg: #E9EFEA; }
+        .cta-section { --section-bg: #F1E4DA; }
+
+        /* ── Story text ── */
+        .story-section {
+            padding: 90px 0 80px;
+        }
+        .story-content {
+            max-width: 950px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, rgba(255,255,255,0.6) 0%, rgba(212,175,55,0.08) 100%);
+            padding: 70px 60px;
+            border: 1px solid rgba(122, 139, 125, 0.3);
+            box-shadow: 
+                0 10px 40px rgba(0, 0, 0, 0.08),
+                inset 0 1px 0 rgba(255, 255, 255, 0.8);
+            position: relative;
+        }
+
+        .story-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                repeating-linear-gradient(
+                    0deg,
+                    rgba(0, 0, 0, 0.01) 0px,
+                    rgba(0, 0, 0, 0.01) 1px,
+                    transparent 1px,
+                    transparent 2px
+                );
+            pointer-events: none;
+            border-radius: 2px;
+        }
+
+        .story-kicker {
+            text-align: center;
+            font-size: .85rem;
+            font-weight: 600;
+            letter-spacing: .18em;
+            text-transform: uppercase;
+            color: var(--rust);
+            margin-bottom: 18px;
+            position: relative;
+            z-index: 1;
+        }
+        .story-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 4.5vw, 3.5rem);
+            line-height: 1.2;
+            text-align: center;
+            margin-bottom: 45px;
+            position: relative;
+            z-index: 1;
+        }
+        .story-language {
+            margin-bottom: 42px;
+            position: relative;
+            z-index: 1;
+        }
+        .story-language h3 {
+            font-family: 'Courier Prime', monospace;
+            font-size: clamp(1.2rem, 2.5vw, 1.7rem);
+            line-height: 1.4;
+            margin-bottom: 22px;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+            color: var(--charcoal);
+            text-transform: none;
+        }
+        .story-language p {
+            font-family: 'Courier Prime', monospace;
+            font-size: 1.08rem;
+            line-height: 1.85;
+            margin-bottom: 20px;
+            letter-spacing: 0.01em;
+            color: var(--charcoal);
+            font-weight: 400;
+        }
+
+        .story-language p em {
+            font-style: italic;
+            font-weight: 700;
+        }
+
+        .heartbeat {
+            display: inline-block;
+            animation: heartbeat 1.3s ease-in-out infinite;
+            transform-origin: center;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            14%      { transform: scale(1.3); }
+            28%      { transform: scale(1); }
+            42%      { transform: scale(1.3); }
+            70%      { transform: scale(1); }
+        }
+
+        .story-divider {
+            width: 70px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            margin: 50px auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .story-divider::before {
+            content: '◆';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            color: var(--gold);
+            font-size: 0.8rem;
+            background: var(--section-bg);
+            padding: 0 8px;
+        }
+
+        .story-tags {
+            text-align: center;
+            font-size: .85rem;
+            line-height: 1.8;
+            color: var(--sage);
+            position: relative;
+            z-index: 1;
+            font-family: 'Courier Prime', monospace;
+            letter-spacing: 0.005em;
         }
 
         .grain {
@@ -66,8 +203,8 @@
             overflow: hidden;
             width: 100%;
             max-height: 600px;
-            border: 1px solid var(--sage);
-            box-shadow: 0 20px 50px rgba(0,0,0,.08), 0 5px 15px rgba(0,0,0,.05);
+            border: 2px solid var(--sage);
+            box-shadow: 0 20px 50px rgba(0,0,0,.08), 0 5px 15px rgba(0,0,0,.05), inset 0 1px 0 rgba(255,255,255,0.5);
             position: relative;
             transition: transform 0.5s cubic-bezier(.4,0,.2,1);
         }
@@ -123,137 +260,146 @@
         .image-frame {
             overflow: hidden;
             aspect-ratio: 4/5;
-            border: 1px solid var(--sage);
-            box-shadow: 0 20px 50px rgba(0,0,0,.08), 0 5px 15px rgba(0,0,0,.05);
+            border: 2px solid var(--sage);
+            box-shadow: 0 20px 50px rgba(0,0,0,.08), 0 5px 15px rgba(0,0,0,.05), inset 0 1px 0 rgba(255,255,255,0.5);
             transition: transform 0.5s cubic-bezier(.4,0,.2,1);
-            position: relative;
         }
 
         .image-frame img {
-            width: 100%; height: 100%;
-            object-fit: cover;
+            width: 100%;
+            height: 100%;
+            display: block;
+            filter: grayscale(0.15) contrast(1.05);
             transition: transform 0.7s cubic-bezier(.4,0,.2,1);
         }
 
+        .portrait-wrap:hover .image-frame { transform: translateY(-4px); }
+        .portrait-wrap:hover .image-frame img { transform: scale(1.04); }
+
         /* ── Quote ── */
         .quote-section {
-            padding: 100px 0 60px;
+            padding: 80px 20px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 300px;
+        }
+
+        .quote-section blockquote {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.8rem, 5vw, 2.8rem);
             text-align: center;
-            opacity: 0;
-            animation: fadeIn 1s ease 0.8s forwards;
+            line-height: 1.4;
+            color: var(--charcoal);
+            max-width: 800px;
+            position: relative;
+            z-index: 10;
         }
 
         .quote-mark {
-            font-family: 'Playfair Display', serif;
-            font-size: 8rem;
-            color: var(--sage);
-            opacity: 0.2;
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 120px;
+            color: var(--gold);
+            opacity: 0.4;
             line-height: 0.5;
-            display: block;
-            margin-bottom: 20px;
-        }
-
-        blockquote {
-            font-family: 'Libre Baskerville', serif;
-            font-size: clamp(1.5rem, 3vw, 2.25rem);
-            line-height: 1.6;
-            font-style: italic;
-            color: var(--charcoal);
-            max-width: 800px;
-            margin: 0 auto;
+            z-index: 1;
         }
 
         /* ── CTA ── */
         .cta-section {
-            padding: 60px 0 120px;
-            text-align: center;
-            opacity: 0;
-            animation: fadeIn 1s ease 1s forwards;
+            padding: 80px 0;
         }
 
         .cta-content {
-            max-width: 600px;
+            text-align: center;
+            max-width: 700px;
             margin: 0 auto;
+            position: relative;
+            background: rgba(255, 255, 255, 0.5);
+            padding: 60px 50px;
+            border: 1px dashed var(--sage);
+            border-radius: 8px;
         }
 
         .cta-content h2 {
             font-family: 'Playfair Display', serif;
-            font-size: clamp(2.5rem, 5vw, 4rem);
-            line-height: 1.2;
-            margin-bottom: 30px;
+            font-size: clamp(2rem, 4vw, 3rem);
+            margin-bottom: 24px;
             color: var(--charcoal);
         }
 
         .cta-content p {
-            font-size: 1.25rem;
-            line-height: 1.7;
-            color: var(--sage);
-            margin-bottom: 50px;
+            font-size: 1.15rem;
+            line-height: 1.8;
+            margin-bottom: 40px;
+            color: var(--charcoal);
         }
 
         .youtube-btn {
             display: inline-flex;
             align-items: center;
-            gap: 15px;
+            justify-content: center;
+            gap: 12px;
             padding: 20px 50px;
-            background: var(--rust);
+            background: linear-gradient(135deg, var(--rust) 0%, #b84b2d 100%);
             color: white;
-            text-decoration: none;
             font-family: 'Source Sans 3', sans-serif;
-            font-size: 1.125rem;
+            font-size: 1.05rem;
             font-weight: 600;
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: all 0.3s cubic-bezier(.4,0,.2,1);
+            box-shadow: 0 10px 30px rgba(200, 88, 53, 0.3);
+            border: none;
             cursor: pointer;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.4s cubic-bezier(.4,0,.2,1);
-            box-shadow: 0 10px 30px rgba(200,88,53,.3);
         }
 
-        .youtube-btn::before {
-            content: '';
-            position: absolute;
-            top: 50%; left: 50%;
-            width: 0; height: 0;
-            border-radius: 50%;
-            background: rgba(255,255,255,.15);
-            transform: translate(-50%,-50%);
-            transition: width 0.6s ease, height 0.6s ease;
-        }
-
-        .youtube-btn:hover::before { width: 300px; height: 300px; }
         .youtube-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(200,88,53,.4);
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(200, 88, 53, 0.4);
         }
 
-        .youtube-icon { width: 28px; height: 28px; position: relative; z-index: 1; }
-        .btn-text { position: relative; z-index: 1; }
+        .youtube-btn:active {
+            transform: translateY(0);
+        }
+
+        .youtube-icon {
+            width: 24px;
+            height: 24px;
+            display: block;
+        }
+
+        .btn-text {
+            letter-spacing: 0.02em;
+        }
 
         .ornament {
-            width: 60px; height: 1px;
-            background: var(--gold);
-            margin: 30px auto;
+            margin-top: 50px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
             position: relative;
         }
 
-        .ornament::before,
         .ornament::after {
-            content: '';
+            content: '◆ ◆ ◆';
             position: absolute;
-            width: 8px; height: 8px;
-            background: var(--gold);
-            border-radius: 50%;
-            top: 50%;
-            transform: translateY(-50%);
+            left: 50%;
+            top: -12px;
+            transform: translateX(-50%);
+            color: var(--gold);
+            font-size: 0.8rem;
+            letter-spacing: 8px;
+            padding: 0 12px;
+            background: var(--section-bg);
         }
 
-        .ornament::before { left: -15px; }
-        .ornament::after  { right: -15px; }
-
+        /* ── Animations ── */
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
+            from { opacity: 0; }
             to   { opacity: 1; transform: translateY(0); }
         }
 
@@ -264,10 +410,11 @@
 
         @media (max-width: 768px) {
             .container { padding: 0 20px; }
-            .images-grid { grid-template-columns: 1fr; gap: 50px; }
+            .story-content { padding: 40px 30px; }
             .image-section { padding: 8px 0 40px; }
             .quote-section { padding: 60px 0 40px; }
             .cta-section { padding: 40px 0 80px; }
+            .cta-content { padding: 40px 30px; }
             .youtube-btn { padding: 18px 40px; font-size: 1rem; }
             .portrait-row { flex-direction: column; gap: 24px; }
             .portrait-contact { text-align: center; }
@@ -314,7 +461,7 @@
             ">DIANI-mit-AXEL</h1>
         </header>
 
-        <section class="image-section">
+        <section class="image-section" data-bg="#F7F4EF">
             <!-- landscape: full viewport width, breaks out of container -->
             <div style="margin: 0 -40px;">
                 <div class="landscape-wrap">
@@ -339,14 +486,60 @@
             </div>
         </section>
 
-        <section class="quote-section">
+        
+        <section class="story-section" data-bg="#E7EDE8">
+            <div class="story-content">
+                <div class="story-kicker">Unsere Geschichte · Our Story</div>
+
+                <h2 class="story-title">
+                    Axel's Weg von Deutschland nach Kenia – Aufbau von Geschäften,
+                    Freundschaften &amp; neuen Chancen
+                </h2>
+
+                <div class="story-language">
+                    <h3>Willkommen bei unserer Geschichte! <span class="heartbeat">❤️</span></h3>
+                    <p>In diesen Videos erzählen wir die Geschichte von Axel, der mit der Vision nach Kenia kam, mehr als nur Urlaub zu erleben. Seine Reise handelt davon, Kenia zu entdecken und wunderbare Menschen zu treffen. Vielleicht finden sich auf diesem Weg auch Freunde des Doppelkopf-Spiels.</p>
+                    <p>Axel erkannte das Potenzial, das Kenia zu bieten hat – von der wunderschönen Küste und der herzlichen Gastfreundschaft bis hin zu den Menschen, der Kultur, dem Tourismus und den vielfältigen Geschäftsmöglichkeiten. Sein Ziel ist es, wertvolle Verbindungen zu schaffen und mehr Menschen aus Deutschland dazu zu ermutigen, Kenia selbst zu erleben.</p>
+                    <p>Wir sind davon überzeugt, dass Kenia ein wunderbarer Ort ist, um ihn zu besuchen und zu erkunden, Freundschaften zu schließen und neue Möglichkeiten zu entdecken. Ob Sie für einen Urlaub kommen, eine ruhige Unterkunft suchen, Freunde treffen oder Geschäftsmöglichkeiten erkunden möchten – Kenia hat etwas Besonderes zu bieten. 🌴🌊☀️</p>
+                    <p>Wenn Sie aus Deutschland oder einem anderen Teil der Welt kommen und darüber nachdenken, Kenia zu besuchen, sind Sie herzlich willkommen! 🇰🇪<span class="heartbeat">❤️</span></p>
+                    <div class="story-tags">#Urlaub #Auswandern #LebenInKenia #LiebeInKenia #Gesundheit #Abenteuer #Glück #NeueFreunde<br>#AxelSusen #Kenia #VonDeutschlandNachKenia #BesuchtKenia #DianiBeach #Diani #FirstroseVilla #KeniaTourismus #KeniaBusiness #HeiratInKenia #ReisenNachKenia</div>
+                </div>
+
+                <div class="story-divider"></div>
+
+                <div class="story-language">
+                    <h3>Axel's Journey from Germany to Kenya – Building Businesses, Friendships &amp; New Opportunities</h3>
+                    <p>Welcome to our story! <span class="heartbeat">❤️</span></p>
+                    <p>In these videos, we share the story of Axel, who came to Kenya with a vision to experience more than just a typical vacation. His journey is about discovering Kenya and meeting wonderful people. Along the way, he might even find fellow fans of the card game <em>Doppelkopf</em>.</p>
+                    <p>Axel recognized the potential Kenya has to offer—from its beautiful coast and warm hospitality to its people, culture, tourism, and growing business opportunities. His goal is to forge valuable connections and encourage more people from Germany to experience Kenya firsthand.</p>
+                    <p>We are convinced that Kenya is a wonderful place to visit and explore, to make friends, and to discover new possibilities. Whether you are coming for a holiday, looking for a peaceful place to stay, wanting to meet friends, or exploring business opportunities—Kenya has something special to offer.</p>
+                    <p>If you are from Germany or anywhere else in the world and are thinking about visiting Kenya, you are warmly welcome! <span class="heartbeat">❤️</span></p>
+                    <div class="story-tags">#Vacation #Emigration #LifeInKenya #LoveInKenya #Health #Adventure #Happiness #NewFriends<br>#AxelSusen #Kenya #FromGermanyToKenya #VisitKenya #DianiBeach #Diani #FirstroseVilla #KenyaTourism #KenyaBusiness #MarriageInKenya #TravelToKenya</div>
+                </div>
+
+                <div class="story-divider"></div>
+
+                <div class="story-language">
+                    <h3>Diani Beach</h3>
+                    <p>Diani Beach ist die Südküste von Mombasa in Kenia. Dieses Gebiet hat sich in den letzten zehn Jahren zu einem Touristenmagnet entwickelt. Aus meiner Sicht ist es der schönste Platz am Meer in ganz Afrika. Die Gründe dafür werde ich so nach und nach erzählen.</p>
+                    <p>Diani Beach is on the south coast of Mombasa in Kenya. This area has become a major tourist destination over the last ten years. In my opinion, it's the most beautiful seaside spot in all of Africa. I'll explain why gradually.</p>
+                </div>
+
+                <div class="story-tags">
+                    Urlaub, auswandern, Leben und Liebe in Kenia, Gesundheit, Gefahren, Glück und Abenteuer, neue Freunde<br>
+                    Vacation, emigration, life and love in Kenya, health, dangers, happiness and adventure, new friends
+                </div>
+            </div>
+        </section>
+
+<section class="quote-section" data-bg="#E9EFEA">
             <span class="quote-mark">"</span>
             <blockquote>
                 The stories we tell become the lives we live
             </blockquote>
         </section>
 
-        <section class="cta-section">
+        <section class="cta-section" data-bg="#F1E4DA">
             <div class="cta-content">
                 <h2>Join the Journey</h2>
                 <p>
@@ -364,5 +557,32 @@
         </section>
 
     </div>
+
+    <script>
+        const backgroundSections = document.querySelectorAll('section[data-bg]');
+
+        const backgroundObserver = new IntersectionObserver((entries) => {
+            const visible = [...entries]
+                .filter(entry => entry.isIntersecting)
+                .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+
+            if (visible.length) {
+                document.documentElement.style.setProperty(
+                    '--page-bg',
+                    visible[0].target.dataset.bg
+                );
+            }
+        }, { threshold: [0.15, 0.3, 0.5, 0.7] });
+
+        backgroundSections.forEach(section => backgroundObserver.observe(section));
+
+        if (backgroundSections.length) {
+            document.documentElement.style.setProperty(
+                '--page-bg',
+                backgroundSections[0].dataset.bg
+            );
+        }
+    </script>
+
 </body>
 </html>
